@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Income Tax Calculator Pakistan</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css"/>
+    </noscript>
+</head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header" class="alt">
+        <span class="logo"><img src="images/logo.svg" alt=""/></span>
+        <h1>Income Tax Calculator 2023 – 24</h1>
+        <section>
+            <div class="row gtr-uniform">
+                <div class="col-2 col-12-xsmall"></div>
+                <div class="col-4 col-12-xsmall">
+                    <input type="text" name="income" id="income" value="" placeholder="Your Income"/>
+                </div>
+                <div class="col-2 col-12-xsmall">
+                    <select name="is_annual" id="is_annual">
+                        <option value="0">Monthly</option>
+                        <option value="1">Annually</option>
+                    </select>
+                </div>
+                <div class="col-2 col-12-xsmall">
+                    <a href="javascript:void(0)" onclick="calculateTotalTax()" class="button primary fit">Calculate
+                        >></a>
+                </div>
+            </div>
+        </section>
+
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <ul>
+            <li><a href="#intro" class="active">Home</a></li>
+            <li><a href="#first">Relavent Links</a></li>
+            <li><a href="#second">Tax Slabs</a></li>
+            <!--
+                        <li><a href="#cta">Get Started</a></li>-->
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Introduction -->
+        <section id="intro" class="main">
+
+            <div class="content">
+
+                <div class="box alt">
+                    <div class="row gtr-uniform">
+
+                        <div class="col-4 col-12-xsmall">
+                            <canvas id="pieChart" style="width:100%;max-width:700px"></canvas>
+                        </div>
+
+                        <div class="col-4 col-12-xsmall">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th colspan="2">By Month</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Salary including tax</td>
+                                    <td id="atotal" class="align-right"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax deduction</td>
+                                    <td id="atax" class="align-right"></td>
+                                </tr>
+                                <tr>
+                                    <td>Salary after tax</td>
+                                    <td id="anet" class="align-right"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-4 col-12-xsmall">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th colspan="2">By Year</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Salary including tax</td>
+                                    <td id="btotal" class="align-right"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax deduction</td>
+                                    <td id="btax" class="align-right"></td>
+                                </tr>
+                                <tr>
+                                    <td>Salary after tax</td>
+                                    <td id="bnet" class="align-right"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="box alt">
+                    <header class="major">
+                        <h3>Your income fall under the following tax slab.</h3>
+                    </header>
+                    <div class="row gtr-uniform">
+                        <div class="col-6 col-12-xsmall">
+                            <p id="placerholder"></p>
+                        </div>
+                        <div class="col-6 col-12-xsmall">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th colspan="2">Calculation Details</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Fixed Tax:</td>
+                                    <td id="cfixedTax" class="align-right"></td>
+                                </tr>
+                                <tr>
+                                    <td>% on taxable amount</td>
+                                    <td id="cpercentTax" class="align-right"></td>
+                                </tr>
+                                <tr>
+                                    <td>Total Tax</td>
+                                    <td id="ctotalTax" class="align-right"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- First Section -->
+        <section id="first" class="main special">
+            <header class="major">
+                <h2>Relavent Links</h2>
+            </header>
+            <ul class="features">
+                <li>
+                    <span class="icon solid major style1 fa-save"></span>
+                    <h3>Basic Concepts of Income Tax</h3>
+                    <p>You will learn the fundamentals of income tax including taxable and none taxable sources.
+                        This brochure is to assist taxpayers.</p>
+                    <a href="https://download1.fbr.gov.pk/Docs/20186291463739494BasicConceptsIncomeTax.pdf"
+                       class="button" target="_blank"
+                       rel="noopener noreferrer">Learn More</a>
+                </li>
+                <li>
+                    <span class="icon major style3 fa-copy"></span>
+                    <h3>Budget Document (PDF)</h3>
+                    <p>Federal Budget in Brief 2023-24. The fiscal year 2023-24 along with budget estimates and
+                        revised estimates for the fiscal year 2023-24.</p>
+                    <a href="https://www.finance.gov.pk/fb_2023_24.html" class="button" target="_blank"
+                       rel="noopener noreferrer">Learn More</a>
+                </li>
+                <li>
+                    <span class="icon solid major style2 fa-laptop"></span>
+                    <h3>Official Tax Authority Website</h3>
+                    <p>You can visit the official Website of Pakistan Tax Authority for more up to date tax related
+                        regulations and information.</p>
+                    <a href="https://www.fbr.gov.pk/" class="button" target="_blank"
+                       rel="noopener noreferrer">Learn More</a>
+                </li>
+            </ul>
+            <!--
+                            <footer class="major">
+                                <ul class="actions special">
+                                    <li><a href="generic.html" class="button">Learn More</a></li>
+                                </ul>
+                            </footer>
+                            -->
+        </section>
+
+        <!-- Second Section -->
+        <section id="second" class="main special">
+            <header class="major">
+                <h2>Salary Tax Slabs According to Budget 2023 – 24</h2>
+            </header>
+            <!--
+                            <ul class="statistics">
+                                <li class="style1">
+                                    <span class="icon solid fa-code-branch"></span>
+                                    <strong>5,120</strong> Etiam
+                                </li>
+                                <li class="style2">
+                                    <span class="icon fa-folder-open"></span>
+                                    <strong>8,192</strong> Magna
+                                </li>
+                                <li class="style3">
+                                    <span class="icon solid fa-signal"></span>
+                                    <strong>2,048</strong> Tempus
+                                </li>
+                                <li class="style4">
+                                    <span class="icon solid fa-laptop"></span>
+                                    <strong>4,096</strong> Aliquam
+                                </li>
+                                <li class="style5">
+                                    <span class="icon fa-gem"></span>
+                                    <strong>1,024</strong> Nullam
+                                </li>
+                                <li class="style2">
+                                    <span class="icon fa-gem"></span>
+                                    <strong>1,024</strong> Nullam
+                                </li>
+                            </ul>
+
+                            <p class="content">Nam elementum nisl et mi a commodo porttitor. Morbi sit amet nisl eu arcu faucibus hendrerit vel a risus. Nam a orci mi, elementum ac arcu sit amet, fermentum pellentesque et purus. Integer maximus varius lorem, sed convallis diam accumsan sed. Etiam porttitor placerat sapien, sed eleifend a enim pulvinar faucibus semper quis ut arcu. Ut non nisl a mollis est efficitur vestibulum. Integer eget purus nec nulla mattis et accumsan ut magna libero. Morbi auctor iaculis porttitor. Sed ut magna ac risus et hendrerit scelerisque. Praesent eleifend lacus in lectus aliquam porta. Cras eu ornare dui curabitur lacinia.</p>-->
+            <ul class="alt">
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <td class="align-left">
+                                <h3>Salary income is under PKR 600,000</h3>
+                                If the annual salary income does not exceed PKR. 600,000 then the rate of the income
+                                tax is 0%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-left">
+                                <h3>Salary income exceeds PKR 600,000 but is under PKR 1.2 Million</h3>If the annual
+                                salary income exceeds PKR. 600,000 but does not exceed PKR. 1.2 million then the
+                                rate of income tax is 2.5% of the amount exceeding PKR. 600,000.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-left">
+                                <h3>Salary income exceeds PKR 1.2 Million but is under PKR 2.4 Million</h3>If the
+                                taxable annual income exceeds PKR. 1.2 million but does not exceed PKR. 2.4 million
+                                then the rate of income tax is PKR. 15,000 + 12.5% of the amount exceeding PKR. 1.2
+                                million.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-left">
+                                <h3>Salary income exceeds PKR 2.4 Million but is under PKR 3.6 Million</h3>If the
+                                annual salary income exceeds PKR. 2.4 million but does not exceed PKR. 3.6 million
+                                then the rate of income tax is flat PKR 165,000 + 22.5% of the amount exceeding PKR.
+                                2.4 million
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-left">
+                                <h3>Salary income exceeds PKR 3.6 Million but is under PKR 6 Million</h3>If the
+                                annual salary income exceeds PKR. 3.6 million but does not exceed PKR. 6 million
+                                then the rate of income tax is flat PKR. 435,000 + 27.5% of the amount exceeding
+                                PKR. 3.6 million
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-left">
+                                <h3>Salary income exceeds PKR 6 million</h3>If the annual salary income exceeds PKR.
+                                6 million then the rate of income tax is flat PKR 1,095,000 + 35% of the amount
+                                exceeding PKR. 6 million
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </ul>
+            <!--
+                            <footer class="major">
+                                <ul class="actions special">
+                                    <li><a href="generic.html" class="button">Learn More</a></li>
+                                </ul>
+                            </footer>
+                            -->
+        </section>
+
+        <!-- Get Started
+                        <section id="cta" class="main special">
+                            <header class="major">
+                                <h2>Congue imperdiet</h2>
+                                <p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
+                                posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
+                            </header>
+                            <footer class="major">
+                                <ul class="actions special">
+                                    <li><a href="generic.html" class="button primary">Get Started</a></li>
+                                    <li><a href="generic.html" class="button">Learn More</a></li>
+                                </ul>
+                            </footer>
+                        </section>
+-->
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <section>
+            <h2>Codevstan (Code Dev Station)</h2>
+            <p>The word codevstan is composed of three words code dev and stan
+                We translate it into code development station. (stan is used for place in many asian languages).</p>
+            <ul class="actions">
+                <li><a href="https://www.codevstan.com" class="button">Learn More</a></li>
+            </ul>
+        </section>
+        <section>
+            <h2>Social Links</h2>
+            <dl class="alt">
+                <dt>Address</dt>
+                <dd>Lahore &bull; Pakistan &bull; Asia</dd>
+                <dt>Youtube</dt>
+                <dd>www.youtube.com/@codevstan</dd>
+                <dt>Email</dt>
+                <dd><a href="mailto@codevstan@gmail.com">codevstan@gmail.com</a></dd>
+            </dl>
+            <ul class="icons">
+                <li><a href="https://www.twitter.com/codevstan" class="icon brands fa-twitter alt" target="_blank"
+                       rel="noopener noreferrer"><span
+                        class="label">Twitter</span></a></li>
+                <li><a href="https://www.facebook.com/codevstan" class="icon brands fa-facebook-f alt" target="_blank"
+                       rel="noopener noreferrer"><span
+                        class="label">Facebook</span></a></li>
+                <li><a href="https://www.instagram.com/codevstan" class="icon brands fa-instagram alt" target="_blank"
+                       rel="noopener noreferrer"><span
+                        class="label">Instagram</span></a></li>
+                <li><a href="https://adnannazir.github.io" class="icon brands fa-github alt" target="_blank"
+                       rel="noopener noreferrer"><span
+                        class="label">GitHub</span></a></li>
+                <!-- <li><a href="https://www.youtube.com/@codevstan" class="icon brands fa-dribbble alt"><span class="label">Youtube</span></a></li> -->
+            </ul>
+        </section>
+        <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/calc.js"></script>
+
+</body>
+
+</html>
