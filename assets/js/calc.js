@@ -70,18 +70,18 @@ function calculateTotalTax() {
                 monSal = income / 12;
                 monTax = totalTax / 12;
 
-                $('#atotal').text(monSal.toFixed(2));
-                $('#atax').text(monTax.toFixed(2));
-                $('#anet').text((monSal - monTax).toFixed(2));
+                $('#atotal').text(Math.ceil(monSal));
+                $('#atax').text(Math.ceil(monTax));
+                $('#anet').text(Math.ceil((monSal - monTax)));
 
-                $('#btotal').text(income.toFixed(2));
-                $('#btax').text(totalTax.toFixed(2));
-                $('#bnet').text((income - totalTax).toFixed(2));
+                $('#btotal').text(Math.ceil(income));
+                $('#btax').text(Math.ceil(totalTax));
+                $('#bnet').text(Math.ceil((income - totalTax)));
 
 
-                $('#cfixedTax').text(slab.fixedAmount);
-                $('#cpercentTax').text(((income - slab.minAmount) * slab.rate / 100).toFixed(2));
-                $('#ctotalTax').text(totalTax.toFixed(2));
+                $('#cfixedTax').text(Math.ceil(slab.fixedAmount));
+                $('#cpercentTax').text(Math.ceil(((income - slab.minAmount) * slab.rate / 100)));
+                $('#ctotalTax').text(Math.ceil(totalTax));
 
 
                 break; // Exit loop once the slab is found
