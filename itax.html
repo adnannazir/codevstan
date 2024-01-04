@@ -24,10 +24,22 @@
     <!-- Header -->
     <header id="header" class="alt">
         <span class="logo"><img src="images/logo.svg" alt=""/></span>
-        <h1>Income Tax Calculator 2023 – 24</h1>
+        <h1>Income Tax Calculator <span id="year_text">2023 – 24</span></h1>
         <section>
             <div class="row gtr-uniform">
-                <div class="col-2 col-12-xsmall"></div>
+                <div class="col-3 col-12-xsmall">
+                    <select name="year_id" id="year_id" onchange="onchange_year()">
+                        <option value="7">2023-2024</option>
+                        <option value="6">2022-2023</option>
+                        <option value="5">2021-2022</option>
+                        <option value="5">2020-2021</option>
+                        <option value="5">2019-2020</option>
+                        <option value="4">2018-2019</option>
+                        <option value="4">2017-2018</option>
+                        <option value="3">2016-2017</option>
+                        <option value="2">2015-2016</option>
+                    </select>
+                </div>
                 <div class="col-4 col-12-xsmall">
                     <input type="text" name="income" id="income" value="" placeholder="Your Income"/>
                 </div>
