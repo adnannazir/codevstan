@@ -143,8 +143,8 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
   </div>
   <div class="rate-strip">
     <div class="rate-strip-inner">
-      <div class="rate-item"><div class="rate-num">10%</div><div class="rate-label">On Current Basic</div></div>
-      <div class="rate-item"><div class="rate-num">15%</div><div class="rate-label">DRA on June 2022 Basic</div></div>
+      <div class="rate-item"><div class="rate-num">7%</div><div class="rate-label">ARA 2026</div></div>
+      <div class="rate-item"><div class="rate-num">15%</div><div class="rate-label">DRA 2026 (on 2022 Basic Pay)</div></div>
       <div class="rate-item"><div class="rate-num">50%</div><div class="rate-label">Conveyance Extra</div></div>
       <div class="rate-item"><div class="rate-num">Tax</div><div class="rate-label">Salary Slabs</div></div>
     </div>
@@ -217,7 +217,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
         <div class="card-head"><div class="card-title">Increase Summary</div></div>
         <div class="card-body">
           <div class="metric-grid">
-            <div class="metric"><div class="metric-val" id="m-ara">--</div><div class="metric-label">10% Current Basic</div></div>
+            <div class="metric"><div class="metric-val" id="m-ara">--</div><div class="metric-label">7% ARA 2026</div></div>
             <div class="metric"><div class="metric-val" id="m-dra">--</div><div class="metric-label">15% DRA 2026</div></div>
             <div class="metric"><div class="metric-val" id="m-conv">--</div><div class="metric-label">50% Conveyance</div></div>
             <div class="metric full">
@@ -235,8 +235,8 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
             <table>
               <thead><tr><th>Allowance Component</th><th>Amount (PKR)</th></tr></thead>
               <tbody>
-                <tr><td><div class="td-name">10% Basic Increase</div><div class="td-sub">On current running basic pay</div></td><td id="bd-ara">--</td></tr>
-                <tr><td><div class="td-name">15% DRA 2026</div><div class="td-sub">On your actual basic pay as on 30.06.2022</div></td><td id="bd-dra">--</td></tr>
+                <tr><td><div class="td-name">7% Adhoc Relief 2026</div><div class="td-sub">7% of the new basic pay</div></td><td id="bd-ara">--</td></tr>
+                <tr><td><div class="td-name">15% DRA 2026</div><div class="td-sub">15% of basic pay as on 30.06.2022</div></td><td id="bd-dra">--</td></tr>
                 <tr><td><div class="td-name">50% Conveyance Extra</div><div class="td-sub">On existing conveyance allowance</div></td><td id="bd-conv">--</td></tr>
                 <tr class="total-row"><td><strong>Total Monthly Jump</strong></td><td id="bd-total">--</td></tr>
               </tbody>
@@ -255,7 +255,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
             <tbody id="scale-body"></tbody>
           </table>
         </div>
-        <div class="note note-info"><strong>Budget 2026-27 Relief:</strong> 10% increase on current basic pay + 15% Disparity Reduction Allowance on your June 2022 basic pay + 50% increase in Conveyance Allowance.</div>
+        <div class="note note-info"><strong>Budget 2026-27 Relief:</strong> New basic pay is formed first by merging Adhoc Relief 2022 and Adhoc Relief 2025 into current basic pay. The shown increases are only ARA 2026, DRA 2026, and conveyance increase.</div>
         <div class="note note-warn"><strong>Note:</strong> Actual salary may vary based on stage, increment position, and office-specific deductions. Verify with your DDO/AGPR office.</div>
       </div>
     </div>
@@ -433,8 +433,12 @@ function calcSalary(){
   const basic2022=parseFloat(byId('basic-2022').value);
   if(!bps||!basic||basic<=0||!basic2022||basic2022<=0){byId('salary-err').classList.add('show');return}
   byId('salary-err').classList.remove('show');
-  const ara=Math.round(basic*.10),dra=Math.round(basic2022*.15),conv=Math.round(cv[bps]*.5);
-  const nb=basic+ara+dra;
+  const adhoc2022=Math.round(basic2022*.15);
+  const adhoc2025=Math.round(basic*.10);
+  const nb=basic+adhoc2022+adhoc2025;
+  const ara=Math.round(nb*.07);
+  const dra=Math.round(basic2022*.15);
+  const conv=Math.round(cv[bps]*.5);
   const total=ara+dra+conv;
   animCount(byId('h-basic'),nb);animCount(byId('h-total'),total);
   byId('m-ara').textContent=rs(ara);byId('m-dra').textContent=rs(dra);byId('m-conv').textContent=rs(conv);byId('m-total').textContent=rs(total);
