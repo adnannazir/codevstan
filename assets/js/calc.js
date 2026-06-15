@@ -137,6 +137,16 @@ const taxSlabs = [
         { min_amount: 2200001, max_amount: 3200000, fixed_amount: 116000, rate: 23 },
         { min_amount: 3200001, max_amount: 4100000, fixed_amount: 346000, rate: 30 },
         { min_amount: 4100001, max_amount: 2147483647, fixed_amount: 616000, rate: 35 },
+    ] },
+    { slab_year_id: 10, year_id: "2026-2027", slabs: [
+        { min_amount: 0, max_amount: 600000, fixed_amount: 0, rate: 0 },
+        { min_amount: 600001, max_amount: 1200000, fixed_amount: 0, rate: 1 },
+        { min_amount: 1200001, max_amount: 2200000, fixed_amount: 6000, rate: 11 },
+        { min_amount: 2200001, max_amount: 3200000, fixed_amount: 116000, rate: 20 },
+        { min_amount: 3200001, max_amount: 4100000, fixed_amount: 316000, rate: 25 },
+        { min_amount: 4100001, max_amount: 5600000, fixed_amount: 541000, rate: 29 },
+        { min_amount: 5600001, max_amount: 7000000, fixed_amount: 976000, rate: 32 },
+        { min_amount: 7000001, max_amount: 2147483647, fixed_amount: 1424000, rate: 35 },
     ] }
 ];
 function getTaxSlabByYearId(s_year_id) {
