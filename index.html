@@ -143,7 +143,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
   </div>
   <div class="rate-strip">
     <div class="rate-strip-inner">
-      <div class="rate-item"><div class="rate-num">7%</div><div class="rate-label">ARA on New Basic</div></div>
+      <div class="rate-item"><div class="rate-num">10%</div><div class="rate-label">On Current Basic</div></div>
       <div class="rate-item"><div class="rate-num">15%</div><div class="rate-label">DRA on June 2022 Basic</div></div>
       <div class="rate-item"><div class="rate-num">50%</div><div class="rate-label">Conveyance Extra</div></div>
       <div class="rate-item"><div class="rate-num">Tax</div><div class="rate-label">Salary Slabs</div></div>
@@ -163,16 +163,14 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
       <div class="card-body">
         <div class="form-row three">
           <div class="field">
-            <label for="bps">BPS Grade</label>
+            <label for="bps">BPS Range</label>
             <div class="inp-wrap">
               <select id="bps" onchange="clearSalaryRes()">
-                <option value="">-- Select Grade --</option>
-                <option value="1">BPS-01</option><option value="2">BPS-02</option><option value="3">BPS-03</option><option value="4">BPS-04</option>
-                <option value="5">BPS-05</option><option value="6">BPS-06</option><option value="7">BPS-07</option><option value="8">BPS-08</option>
-                <option value="9">BPS-09</option><option value="10">BPS-10</option><option value="11">BPS-11</option><option value="12">BPS-12</option>
-                <option value="13">BPS-13</option><option value="14">BPS-14</option><option value="15">BPS-15</option><option value="16">BPS-16</option>
-                <option value="17">BPS-17</option><option value="18">BPS-18</option><option value="19">BPS-19</option><option value="20">BPS-20</option>
-                <option value="21">BPS-21</option><option value="22">BPS-22</option>
+                <option value="">-- Select Range --</option>
+                <option value="1">BPS-01 to BPS-04</option>
+                <option value="5">BPS-05 to BPS-10</option>
+                <option value="11">BPS-11 to BPS-15</option>
+                <option value="16">BPS-16 to BPS-22</option>
               </select>
             </div>
           </div>
@@ -193,7 +191,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
             <p class="hint">Actual basic pay as on 30.06.2022 for DRA.</p>
           </div>
         </div>
-        <div class="err-box" id="salary-err">Please select your BPS grade, enter current basic pay, and enter your June 2022 basic pay.</div>
+        <div class="err-box" id="salary-err">Please select your BPS range, enter current basic pay, and enter your June 2022 basic pay.</div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="calcSalary()">Calculate Salary Increase</button>
           <button class="btn btn-reset" onclick="resetSalary()">Reset</button>
@@ -219,7 +217,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
         <div class="card-head"><div class="card-title">Increase Summary</div></div>
         <div class="card-body">
           <div class="metric-grid">
-            <div class="metric"><div class="metric-val" id="m-ara">--</div><div class="metric-label">7% ARA 2026</div></div>
+            <div class="metric"><div class="metric-val" id="m-ara">--</div><div class="metric-label">10% Current Basic</div></div>
             <div class="metric"><div class="metric-val" id="m-dra">--</div><div class="metric-label">15% DRA 2026</div></div>
             <div class="metric"><div class="metric-val" id="m-conv">--</div><div class="metric-label">50% Conveyance</div></div>
             <div class="metric full">
@@ -237,7 +235,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
             <table>
               <thead><tr><th>Allowance Component</th><th>Amount (PKR)</th></tr></thead>
               <tbody>
-                <tr><td><div class="td-name">7% ARA 2026</div><div class="td-sub">On new merged basic pay</div></td><td id="bd-ara">--</td></tr>
+                <tr><td><div class="td-name">10% Basic Increase</div><div class="td-sub">On current running basic pay</div></td><td id="bd-ara">--</td></tr>
                 <tr><td><div class="td-name">15% DRA 2026</div><div class="td-sub">On your actual basic pay as on 30.06.2022</div></td><td id="bd-dra">--</td></tr>
                 <tr><td><div class="td-name">50% Conveyance Extra</div><div class="td-sub">On existing conveyance allowance</div></td><td id="bd-conv">--</td></tr>
                 <tr class="total-row"><td><strong>Total Monthly Jump</strong></td><td id="bd-total">--</td></tr>
@@ -257,7 +255,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
             <tbody id="scale-body"></tbody>
           </table>
         </div>
-        <div class="note note-info"><strong>Budget 2026-27 Relief:</strong> 7% Ad-hoc Relief Allowance on new merged basic pay + 15% Disparity Reduction Allowance on your June 2022 basic pay + 50% increase in Conveyance Allowance.</div>
+        <div class="note note-info"><strong>Budget 2026-27 Relief:</strong> 10% increase on current basic pay + 15% Disparity Reduction Allowance on your June 2022 basic pay + 50% increase in Conveyance Allowance.</div>
         <div class="note note-warn"><strong>Note:</strong> Actual salary may vary based on stage, increment position, and office-specific deductions. Verify with your DDO/AGPR office.</div>
       </div>
     </div>
@@ -435,10 +433,9 @@ function calcSalary(){
   const basic2022=parseFloat(byId('basic-2022').value);
   if(!bps||!basic||basic<=0||!basic2022||basic2022<=0){byId('salary-err').classList.add('show');return}
   byId('salary-err').classList.remove('show');
-  const[m2,i2]=s22[bps],[m6,i6]=s26[bps];
-  const stage=Math.round((basic-m2)/i2);
-  const nb=Math.min(m6+stage*i6,m6+30*i6);
-  const ara=Math.round(nb*.07),dra=Math.round(basic2022*.15),conv=Math.round(cv[bps]*.5),total=ara+dra+conv;
+  const ara=Math.round(basic*.10),dra=Math.round(basic2022*.15),conv=Math.round(cv[bps]*.5);
+  const nb=basic+ara+dra;
+  const total=ara+dra+conv;
   animCount(byId('h-basic'),nb);animCount(byId('h-total'),total);
   byId('m-ara').textContent=rs(ara);byId('m-dra').textContent=rs(dra);byId('m-conv').textContent=rs(conv);byId('m-total').textContent=rs(total);
   byId('bd-ara').textContent=rs(ara);byId('bd-dra').textContent=rs(dra);byId('bd-conv').textContent=rs(conv);byId('bd-total').textContent=rs(total);
