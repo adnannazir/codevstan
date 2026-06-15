@@ -1,356 +1,500 @@
-<!DOCTYPE HTML>
-<!--
-	Stellar by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Income Tax Calculator Pakistan</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="assets/css/main.css"/>
-    <noscript>
-        <link rel="stylesheet" href="assets/css/noscript.css"/>
-    </noscript>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federal Salary & Income Tax Calculator 2026-27</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f2040;--navy2:#1a3560;--navy3:#254a8a;
+  --cream:#f7f4ef;--cream2:#eee9e0;--amber:#c97b1a;--amber-lite:#fdf3e0;--amber-mid:#e8971f;
+  --ink:#1a1a2e;--ink2:#3d4466;--muted:#7a8099;--border:#d6cebc;--white:#fff;
+  --green:#1a6b3c;--green-lite:#e8f5ee;--blue-lite:#e8eef8;--red:#b83232;--red-lite:#fdf1f1;
+}
+body{background:var(--cream);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;min-height:100vh}
+.header{background:var(--navy);position:relative;overflow:hidden}
+.header-stripe{height:4px;background:repeating-linear-gradient(90deg,var(--amber) 0,var(--amber) 40px,var(--navy2) 40px,var(--navy2) 48px)}
+.header-inner{padding:40px 24px 34px;max-width:820px;margin:0 auto}
+.header-kicker{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-mid);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.header-kicker::before{content:'';width:20px;height:2px;background:var(--amber-mid);display:inline-block}
+.header h1{font-size:clamp(24px,4.5vw,38px);font-weight:300;color:#fff;line-height:1.18;margin-bottom:10px}
+.header h1 strong{font-weight:600}
+.header-sub{font-size:13px;color:rgba(255,255,255,.58);line-height:1.7;max-width:620px}
+.header-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.pill{font-size:11px;font-weight:500;padding:4px 12px;border-radius:2px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.72);letter-spacing:.03em}
+.rate-strip{background:var(--navy2);border-bottom:1px solid rgba(255,255,255,.08)}
+.rate-strip-inner{max-width:820px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr)}
+.rate-item{padding:14px 0;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.rate-item:last-child{border-right:none}
+.rate-num{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:500;color:var(--amber-mid);line-height:1}
+.rate-label{font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
+main{max-width:820px;margin:0 auto;padding:28px 20px 64px;display:flex;flex-direction:column;gap:20px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:4px;padding:10px;box-shadow:0 8px 22px rgba(15,32,64,.08)}
+.tab-btn{border:1.5px solid var(--border);background:var(--cream2);color:var(--ink2);cursor:pointer;font-family:'IBM Plex Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:16px 12px;border-radius:3px;box-shadow:0 3px 0 #c7bea9;transition:background .16s,border-color .16s,color .16s,transform .1s,box-shadow .1s}
+.tab-btn:hover{background:var(--amber-lite);border-color:var(--amber);color:var(--navy)}
+.tab-btn:focus-visible{outline:3px solid rgba(232,151,31,.35);outline-offset:2px}
+.tab-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #c7bea9}
+.tab-btn.active{background:var(--navy);border-color:var(--navy);color:var(--white);box-shadow:0 4px 0 var(--amber)}
+.tab-panel{display:none;flex-direction:column;gap:20px}
+.tab-panel.active{display:flex}
+.card{background:var(--white);border:1px solid var(--border);border-radius:4px}
+.card-head{padding:18px 22px 14px;border-bottom:1px solid var(--cream2);margin-bottom:20px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.card-body{padding:0 22px 22px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-row.three{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:640px){.form-row,.form-row.three,.rate-strip-inner{grid-template-columns:1fr}.rate-item{border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}.rate-item:last-child{border-bottom:0}}
+.field label{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.field .hint{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5}
+.inp-wrap{position:relative}
+.inp-wrap select,.inp-wrap input[type=number],.inp-wrap input[type=text]{
+  width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:3px;background:var(--cream);
+  font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);outline:none;appearance:none;-webkit-appearance:none;transition:border-color .18s
+}
+.inp-wrap select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8099' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;cursor:pointer}
+.inp-wrap select:focus,.inp-wrap input:focus{border-color:var(--navy3);background:var(--white)}
+.inp-unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:600;color:var(--amber);pointer-events:none;letter-spacing:.06em}
+.err-box{display:none;margin-top:14px;padding:10px 14px;background:var(--red-lite);border:1px solid #f0c0c0;border-left:3px solid var(--red);border-radius:3px;font-size:12px;color:var(--red);font-weight:500}
+.err-box.show{display:block}
+.btn-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.btn{border:none;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:.04em;padding:12px 22px;border-radius:3px;transition:background .15s,transform .1s}
+.btn:active{transform:scale(.98)}
+.btn-primary{flex:1;background:var(--navy);color:var(--white)}
+.btn-primary:hover{background:var(--navy2)}
+.btn-reset{background:var(--cream2);color:var(--ink2);border:1px solid var(--border)}
+.btn-reset:hover{background:var(--border)}
+.results{display:none;flex-direction:column;gap:20px}
+.results.show{display:flex}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:fadein .3s ease both}
+.hero-band{background:var(--navy);border-radius:4px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+@media(max-width:520px){.hero-band{grid-template-columns:1fr}}
+.hero-cell{padding:24px 22px}
+.hero-cell+.hero-cell{border-left:1px solid rgba(255,255,255,.08)}
+@media(max-width:520px){.hero-cell+.hero-cell{border-left:0;border-top:1px solid rgba(255,255,255,.08)}}
+.hero-eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.hero-big,.hero-big-amber{font-family:'IBM Plex Mono',monospace;font-size:clamp(25px,5vw,36px);font-weight:400;color:var(--white);line-height:1}
+.hero-big-amber{color:var(--amber-mid)}
+.cur{font-size:.55em;vertical-align:.12em;margin-right:2px;opacity:.8}
+.hero-sub{font-size:11px;color:rgba(255,255,255,.38);margin-top:6px}
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:4px}
+@media(max-width:520px){.metric-grid{grid-template-columns:1fr 1fr}}
+.metric{background:var(--cream);border:1px solid var(--border);border-radius:3px;padding:14px 12px;text-align:center}
+.metric.full{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding:14px 18px;background:var(--amber-lite);border-color:#e0c888}
+.metric-val{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:500;color:var(--navy)}
+.metric-val.big{font-size:22px;color:var(--amber)}
+.metric-label{font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:.05em;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{background:var(--navy)}
+thead th{padding:11px 16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:600;text-align:left}
+thead th:last-child{text-align:right}
+tbody tr{border-bottom:1px solid var(--cream2)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--cream)}
+tbody td{padding:13px 16px;color:var(--ink2);vertical-align:middle}
+tbody td:last-child{text-align:right;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:14px;color:var(--navy)}
+.td-name{font-weight:600;color:var(--ink);font-size:13px}.td-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.total-row td{background:var(--navy);color:rgba(255,255,255,.7)!important;font-weight:600}
+.total-row td:last-child{color:var(--amber-mid)!important;font-size:16px!important}
+.scale-table thead tr{background:var(--cream2)}
+.scale-table thead th{color:var(--muted);text-align:center;border-bottom:1px solid var(--border)}
+.scale-table tbody tr:nth-child(even){background:var(--cream)}
+.scale-table tbody td{text-align:center;padding:8px 12px}
+.scale-table tbody td:first-child{font-weight:600;color:var(--navy);text-align:left}
+.old{color:var(--red)}.new{color:var(--green);font-weight:600}.diff{color:var(--amber);font-weight:600}
+.note{font-size:12px;line-height:1.7;padding:12px 16px;border-radius:3px;margin-top:16px}
+.note-info{background:var(--green-lite);border-left:3px solid var(--green);color:#1a4a2e}
+.note-warn{background:var(--amber-lite);border-left:3px solid var(--amber);color:#5c3a08;margin-top:10px}
+.tax-result-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.tax-result-grid{grid-template-columns:1fr}}
+.benefit-box{background:var(--green-lite);border:1px solid #b8dcc7;border-left:4px solid var(--green);border-radius:4px;padding:18px 20px}
+.benefit-box.negative{background:var(--red-lite);border-color:#f0c0c0;border-left-color:var(--red)}
+.benefit-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px}
+.benefit-title{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.benefit-percent{font-family:'IBM Plex Mono',monospace;font-size:clamp(24px,5vw,34px);line-height:1;color:var(--green)}
+.benefit-box.negative .benefit-percent{color:var(--red)}
+.benefit-sub{font-size:12px;line-height:1.6;color:var(--ink2)}
+.benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+@media(max-width:520px){.benefit-grid{grid-template-columns:1fr}}
+.benefit-mini{background:rgba(255,255,255,.55);border:1px solid rgba(15,32,64,.08);border-radius:3px;padding:10px 12px}
+.benefit-mini span{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.benefit-mini strong{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--navy);font-weight:500}
+.slab-list{display:grid;gap:10px}
+.slab-item{background:var(--cream);border:1px solid var(--border);border-left:3px solid var(--navy3);border-radius:3px;padding:12px 14px}
+.slab-item strong{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
+.slab-item span{font-size:12px;line-height:1.6;color:var(--ink2)}
+footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);letter-spacing:.04em}
+</style>
 </head>
-
-<body class="is-preload">
-
-<!-- Wrapper -->
-<div id="wrapper">
-
-    <!-- Header -->
-    <header id="header" class="alt">
-        <span class="logo"><img src="images/logo.svg" alt=""/></span>
-        <h1>Income Tax Calculator <span id="year_text">2026 – 27</span></h1>
-<div class="top-tool-link">
-    <a href="salary-calculator/index.html">
-        Federal Salary Increase Calculator 2026 – 27 →
-    </a>
+<body>
+<div class="header">
+  <div class="header-stripe"></div>
+  <div class="header-inner">
+    <div class="header-kicker">Budget 2026-27 &nbsp;·&nbsp; Salary and Tax Tools</div>
+    <h1><strong>Federal Salary Increase</strong> &amp; Income Tax Calculator 2026 - 27</h1>
+    <p class="header-sub">A tabbed calculator for Federal Govt Employees: estimate new basic pay, allowance increase, and salaried income tax from one interface.</p>
+    <div class="header-pills">
+      <span class="pill">W.E.F. 1st July 2026</span>
+      <span class="pill">BPS 01 - 22</span>
+      <span class="pill">Pakistan salary tax slabs</span>
+    </div>
+  </div>
+  <div class="rate-strip">
+    <div class="rate-strip-inner">
+      <div class="rate-item"><div class="rate-num">7%</div><div class="rate-label">ARA on New Basic</div></div>
+      <div class="rate-item"><div class="rate-num">15%</div><div class="rate-label">DRA on June 2022 Basic</div></div>
+      <div class="rate-item"><div class="rate-num">50%</div><div class="rate-label">Conveyance Extra</div></div>
+      <div class="rate-item"><div class="rate-num">Tax</div><div class="rate-label">Salary Slabs</div></div>
+    </div>
+  </div>
 </div>
-        <section>
-            <div class="row gtr-uniform">
-                <div class="col-3 col-12-xsmall">
-                    <select name="year_id" id="year_id" onchange="onchange_year()">
-                        <option value="10">2026-2027</option>
-                        <option value="9">2025-2026</option>
-                        <option value="8">2024-2025</option>
-                        <option value="7">2023-2024</option>
-                        <option value="6">2022-2023</option>
-                        <option value="5">2021-2022</option>
-                        <option value="5">2020-2021</option>
-                        <option value="5">2019-2020</option>
-                        <option value="4">2018-2019</option>
-                        <option value="4">2017-2018</option>
-                        <option value="3">2016-2017</option>
-                        <option value="2">2015-2016</option>
-                    </select>
-                </div>
-                <div class="col-4 col-12-xsmall">
-                    <input type="text" name="income" id="income" value="" placeholder="Your Income"/>
-                </div>
-                <div class="col-2 col-12-xsmall">
-                    <select name="is_annual" id="is_annual">
-                        <option value="0">Monthly</option>
-                        <option value="1">Annually</option>
-                    </select>
-                </div>
-                <div class="col-2 col-12-xsmall">
-                    <a href="javascript:void(0)" onclick="calculateTotalTax()" class="button primary fit">Calculate
-                        <i class="fa fa-calculator"></i></a>
-                </div>
+
+<main>
+  <div class="tabs" role="tablist" aria-label="Calculator tabs">
+    <button class="tab-btn active" id="salary-tab" role="tab" aria-selected="true" aria-controls="salary-panel" onclick="switchTab('salary')">Salary Increase</button>
+    <button class="tab-btn" id="tax-tab" role="tab" aria-selected="false" aria-controls="tax-panel" onclick="switchTab('tax')">Income Tax</button>
+  </div>
+
+  <section class="tab-panel active" id="salary-panel" role="tabpanel" aria-labelledby="salary-tab">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Employee Details</div></div>
+      <div class="card-body">
+        <div class="form-row three">
+          <div class="field">
+            <label for="bps">BPS Grade</label>
+            <div class="inp-wrap">
+              <select id="bps" onchange="clearSalaryRes()">
+                <option value="">-- Select Grade --</option>
+                <option value="1">BPS-01</option><option value="2">BPS-02</option><option value="3">BPS-03</option><option value="4">BPS-04</option>
+                <option value="5">BPS-05</option><option value="6">BPS-06</option><option value="7">BPS-07</option><option value="8">BPS-08</option>
+                <option value="9">BPS-09</option><option value="10">BPS-10</option><option value="11">BPS-11</option><option value="12">BPS-12</option>
+                <option value="13">BPS-13</option><option value="14">BPS-14</option><option value="15">BPS-15</option><option value="16">BPS-16</option>
+                <option value="17">BPS-17</option><option value="18">BPS-18</option><option value="19">BPS-19</option><option value="20">BPS-20</option>
+                <option value="21">BPS-21</option><option value="22">BPS-22</option>
+              </select>
             </div>
-        </section>
-
-    </header>
-
-    <!-- Nav -->
-    <nav id="nav">
-        <ul>
-            <li><a href="#intro" class="active">Home</a></li>
-            <li><a href="#first">Relavent Links</a></li>
-            <li><a href="#second">Tax Slabs</a></li>
-            <!--
-                        <li><a href="#cta">Get Started</a></li>-->
-        </ul>
-    </nav>
-
-    <!-- Main -->
-    <div id="main">
-
-        <!-- Introduction -->
-        <section id="intro" class="main">
-
-            <div class="content">
-
-                <div class="box alt">
-                    <div class="row gtr-uniform">
-
-                        <div class="col-4 col-12-xsmall">
-                            <canvas id="pieChart" style="width:100%;max-width:700px"></canvas>
-                        </div>
-
-                        <div class="col-4 col-12-xsmall">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th colspan="2">By Month</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr>
-                                    <td>Salary including tax</td>
-                                    <td id="atotal" class="align-right"></td>
-                                </tr>
-                                <tr>
-                                    <td>Tax deduction</td>
-                                    <td id="atax" class="align-right"></td>
-                                </tr>
-                                <tr>
-                                    <td>Salary after tax</td>
-                                    <td id="anet" class="align-right"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-4 col-12-xsmall">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th colspan="2">By Year</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr>
-                                    <td>Salary including tax</td>
-                                    <td id="btotal" class="align-right"></td>
-                                </tr>
-                                <tr>
-                                    <td>Tax deduction</td>
-                                    <td id="btax" class="align-right"></td>
-                                </tr>
-                                <tr>
-                                    <td>Salary after tax</td>
-                                    <td id="bnet" class="align-right"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="box alt">
-                    <header class="major">
-                        <h3>Your income fall under the following tax slab.</h3>
-                    </header>
-                    <div class="row gtr-uniform">
-                        <div class="col-6 col-12-xsmall">
-                            <p id="placerholder"></p>
-                        </div>
-                        <div class="col-6 col-12-xsmall">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th colspan="2">Calculation Details</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr>
-                                    <td>Fixed Tax:</td>
-                                    <td id="cfixedTax" class="align-right"></td>
-                                </tr>
-                                <tr>
-                                    <td>% on taxable amount</td>
-                                    <td id="cpercentTax" class="align-right"></td>
-                                </tr>
-                                <tr>
-                                    <td>Total Tax</td>
-                                    <td id="ctotalTax" class="align-right"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
+          </div>
+          <div class="field">
+            <label for="basic">Current Running Basic Pay</label>
+            <div class="inp-wrap">
+              <input type="number" id="basic" placeholder="e.g. 32640" min="0" oninput="clearSalaryRes()">
+              <span class="inp-unit">PKR</span>
             </div>
-        </section>
-
-        <!-- First Section -->
-        <section id="first" class="main special">
-            <header class="major">
-                <h2>Relavent Links</h2>
-            </header>
-            <ul class="features">
-                <li>
-                    <span class="icon solid major style1 fa-save"></span>
-                    <h3>Federal Salary Increase Calculator
-2026 – 27</h3>
-                    <p>New basic pay, ARA, DRA & conveyance increase as per Finance Division notification for Federal Govt Employees (BPS 01–22).</p>
-                    <a href="salary-calculator/index.html"
-                       class="button" target="_blank"
-                       rel="noopener noreferrer">Learn More</a>
-                </li>
-                <li>
-                    <span class="icon major style3 fa-copy"></span>
-                    <h3>Budget Document (PDF)</h3>
-                    <p>Federal Budget in Brief 2026-27. The fiscal year 2026-27 along with budget estimates and
-                        revised estimates for the fiscal year 2026-27.</p>
-                    <a href="https://www.finance.gov.pk/fb_2026_27.html" class="button" target="_blank"
-                       rel="noopener noreferrer">Learn More</a>
-                </li>
-                <li>
-                    <span class="icon solid major style2 fa-laptop"></span>
-                    <h3>Official Tax Authority Website</h3>
-                    <p>You can visit the official Website of Pakistan Tax Authority for more up to date tax related
-                        regulations and information.</p>
-                    <a href="https://www.fbr.gov.pk/" class="button" target="_blank"
-                       rel="noopener noreferrer">Learn More</a>
-                </li>
-            </ul>
-            <!--
-            <footer class="major">
-                <ul class="actions special">
-                    <li><a href="generic.html" class="button">Learn More</a></li>
-                </ul>
-            </footer>
-            -->
-        </section>
-
-        <!-- Second Section -->
-        <section id="second" class="main special">
-            <header class="major">
-                <h2>Salary Tax Slabs According to Budget 2026 – 27</h2>
-            </header>
-    
-            <ul class="alt">
-                <div class="table-wrapper">
-                    <table>
-                        <tr>
-                            <td class="align-left">
-                                <h3>Salary income is under PKR 600,000</h3>
-                                If the annual salary income does not exceed PKR. 600,000 then the rate of the income
-                                tax is 0%
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="align-left">
-                                <h3>Salary income exceeds PKR 600,000 but is under PKR 1.2 Million</h3>If the annual
-                                salary income exceeds PKR. 600,000 but does not exceed PKR. 1.2 million then the
-                                rate of income tax is 1% of the amount exceeding PKR. 600,000.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="align-left">
-                                <h3>Salary income exceeds PKR 1.2 Million but is under PKR 2.2 Million</h3>If the
-                                taxable annual income exceeds PKR. 1.2 million but does not exceed PKR. 2.2 million
-                                then the rate of income tax is PKR. 6000 + 11% of the amount exceeding PKR. 1.2
-                                million.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="align-left">
-                                <h3>Salary income exceeds PKR 2.2 Million but is under PKR 3.2 Million</h3>If the
-                                annual salary income exceeds PKR. 2.2 million but does not exceed PKR. 3.2 million
-                                then the rate of income tax is PKR 116,000 + 20% of the amount exceeding PKR.
-                                2.2 million
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="align-left">
-                                <h3>Salary income exceeds PKR 3.2 Million but is under PKR 4.1 Million</h3>If the
-                                annual salary income exceeds PKR. 4.1 million but does not exceed PKR. 4.1 million
-                                then the rate of income tax is PKR. 316,000 + 25% of the amount exceeding
-                                PKR. 3.2 million
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="align-left">
-                                <h3>Salary income exceeds PKR 4.1 million</h3>If the annual salary income exceeds PKR.
-                                4.1 million but does not exceed PKR. 5.6 million then the rate of income tax is PKR 541,000 + 29% of the amount
-                                exceeding PKR. 4.1 million
-                            </td>
-                        </tr>
-                            <tr>
-                            <td class="align-left">
-                                <h3>Salary income exceeds PKR 5.6 million</h3>
-                                If the annual salary income exceeds PKR. 5.6 million but does not exceed PKR. 7 million then the rate of income tax is PKR 976,000 + 32% of the amount
-                                exceeding PKR. 5.6 million
-                            </td>
-                        </tr>
-                                     <tr>
-                            <td class="align-left">
-                                <h3>Salary income exceeds PKR 7.0 million</h3>If the annual salary income exceeds PKR.
-                                7.0 million then the rate of income tax is PKR 14,24,000 + 35% of the amount
-                                exceeding PKR. 7.0 million
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-
-            </ul>
-
-        </section>
+            <p class="hint">Basic pay as on 30.06.2026 before merger.</p>
+          </div>
+          <div class="field">
+            <label for="basic-2022">Basic Pay on June 2022</label>
+            <div class="inp-wrap">
+              <input type="number" id="basic-2022" placeholder="e.g. 28070" min="0" oninput="clearSalaryRes()">
+              <span class="inp-unit">PKR</span>
+            </div>
+            <p class="hint">Actual basic pay as on 30.06.2022 for DRA.</p>
+          </div>
+        </div>
+        <div class="err-box" id="salary-err">Please select your BPS grade, enter current basic pay, and enter your June 2022 basic pay.</div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="calcSalary()">Calculate Salary Increase</button>
+          <button class="btn btn-reset" onclick="resetSalary()">Reset</button>
+        </div>
+      </div>
     </div>
 
-    <!-- Footer -->
-    <footer id="footer">
-        <section>
-            <h2>Codevstan (Code Dev Station)</h2>
-            <p>The word codevstan is composed of three words code dev and stan
-                We translate it into code development station. (stan is used for place in many asian languages).</p>
-            <ul class="actions">
-                <li><a href="https://www.codevstan.com/main.html" class="button">Learn More</a></li>
-            </ul>
-        </section>
-        <section>
-            <h2>Social Links</h2>
-            <dl class="alt">
-                <dt>Address</dt>
-                <dd>Lahore &bull; Pakistan</dd>
-                <dt>Youtube</dt>
-                <dd>www.youtube.com/@codevstan</dd>
-                <dt>Email</dt>
-                <dd><a href="mailto@codevstan@gmail.com">codevstan@gmail.com</a></dd>
-            </dl>
-            <ul class="icons">
-                <li><a href="https://www.twitter.com/codevstan" class="icon brands fa-twitter alt" target="_blank"
-                       rel="noopener noreferrer"><span
-                        class="label">Twitter</span></a></li>
-                <li><a href="https://www.facebook.com/codevstan" class="icon brands fa-facebook-f alt" target="_blank"
-                       rel="noopener noreferrer"><span
-                        class="label">Facebook</span></a></li>
-                <li><a href="https://www.instagram.com/codevstan" class="icon brands fa-instagram alt" target="_blank"
-                       rel="noopener noreferrer"><span
-                        class="label">Instagram</span></a></li>
-                <li><a href="https://adnannazir.github.io" class="icon brands fa-github alt" target="_blank"
-                       rel="noopener noreferrer"><span
-                        class="label">GitHub</span></a></li>
-            </ul>
-        </section>
-        <p class="copyright">&copy; Codevstan. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-    </footer>
+    <div class="results" id="salary-results">
+      <div class="hero-band anim">
+        <div class="hero-cell">
+          <div class="hero-eyebrow">New Basic Pay</div>
+          <div class="hero-big"><span class="cur">Rs.</span><span id="h-basic">0</span></div>
+          <div class="hero-sub">Effective 1st July 2026</div>
+        </div>
+        <div class="hero-cell">
+          <div class="hero-eyebrow">Monthly Increase</div>
+          <div class="hero-big-amber"><span class="cur">Rs.</span><span id="h-total">0</span></div>
+          <div class="hero-sub">extra in hand per month</div>
+        </div>
+      </div>
 
-</div>
+      <div class="card anim">
+        <div class="card-head"><div class="card-title">Increase Summary</div></div>
+        <div class="card-body">
+          <div class="metric-grid">
+            <div class="metric"><div class="metric-val" id="m-ara">--</div><div class="metric-label">7% ARA 2026</div></div>
+            <div class="metric"><div class="metric-val" id="m-dra">--</div><div class="metric-label">15% DRA 2026</div></div>
+            <div class="metric"><div class="metric-val" id="m-conv">--</div><div class="metric-label">50% Conveyance</div></div>
+            <div class="metric full">
+              <div><div class="metric-label">Total Monthly Jump</div><div class="metric-val big" id="m-total">--</div></div>
+              <div class="metric-label">PKR</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<!-- Scripts -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.scrollex.min.js"></script>
-<script src="assets/js/jquery.scrolly.min.js"></script>
-<script src="assets/js/browser.min.js"></script>
-<script src="assets/js/breakpoints.min.js"></script>
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+      <div class="card anim">
+        <div class="card-head"><div class="card-title">Detailed Breakdown</div></div>
+        <div class="card-body" style="padding-top:0">
+          <div style="overflow-x:auto">
+            <table>
+              <thead><tr><th>Allowance Component</th><th>Amount (PKR)</th></tr></thead>
+              <tbody>
+                <tr><td><div class="td-name">7% ARA 2026</div><div class="td-sub">On new merged basic pay</div></td><td id="bd-ara">--</td></tr>
+                <tr><td><div class="td-name">15% DRA 2026</div><div class="td-sub">On your actual basic pay as on 30.06.2022</div></td><td id="bd-dra">--</td></tr>
+                <tr><td><div class="td-name">50% Conveyance Extra</div><div class="td-sub">On existing conveyance allowance</div></td><td id="bd-conv">--</td></tr>
+                <tr class="total-row"><td><strong>Total Monthly Jump</strong></td><td id="bd-total">--</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">2022 vs 2026 - Pay Scale Reference</div></div>
+      <div class="card-body" style="padding-top:0">
+        <div style="overflow-x:auto">
+          <table class="scale-table">
+            <thead><tr><th style="text-align:left">BPS</th><th>Min Basic 2017/ Jun-22</th><th>Min Basic 2026</th><th>Increase</th><th>Increment 2022</th><th>Increment 2026</th></tr></thead>
+            <tbody id="scale-body"></tbody>
+          </table>
+        </div>
+        <div class="note note-info"><strong>Budget 2026-27 Relief:</strong> 7% Ad-hoc Relief Allowance on new merged basic pay + 15% Disparity Reduction Allowance on your June 2022 basic pay + 50% increase in Conveyance Allowance.</div>
+        <div class="note note-warn"><strong>Note:</strong> Actual salary may vary based on stage, increment position, and office-specific deductions. Verify with your DDO/AGPR office.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tax-panel" role="tabpanel" aria-labelledby="tax-tab">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Income Tax Details</div></div>
+      <div class="card-body">
+        <div class="form-row three">
+          <div class="field">
+            <label for="tax-year">Tax Year</label>
+            <div class="inp-wrap">
+              <select id="tax-year" onchange="populateTaxSlabs();clearTaxRes();">
+                <option value="10">2026-2027</option>
+                <option value="9">2025-2026</option>
+                <option value="8">2024-2025</option>
+                <option value="7">2023-2024</option>
+                <option value="6">2022-2023</option>
+                <option value="5">2021-2022 / 2020-2021 / 2019-2020</option>
+                <option value="4">2018-2019 / 2017-2018</option>
+                <option value="3">2016-2017</option>
+                <option value="2">2015-2016</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="tax-income">Income</label>
+            <div class="inp-wrap">
+              <input type="number" id="tax-income" placeholder="e.g. 125000" min="0" oninput="clearTaxRes()">
+              <span class="inp-unit">PKR</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="tax-period">Income Period</label>
+            <div class="inp-wrap">
+              <select id="tax-period" onchange="clearTaxRes()">
+                <option value="monthly">Monthly</option>
+                <option value="annual">Annually</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="err-box" id="tax-err">Please enter a valid income amount.</div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="calcTax()">Calculate Income Tax</button>
+          <button class="btn btn-reset" onclick="resetTax()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="results" id="tax-results">
+      <div class="hero-band anim">
+        <div class="hero-cell">
+          <div class="hero-eyebrow">Monthly Tax Deduction</div>
+          <div class="hero-big"><span class="cur">Rs.</span><span id="tax-monthly">0</span></div>
+          <div class="hero-sub">estimated deduction per month</div>
+        </div>
+        <div class="hero-cell">
+          <div class="hero-eyebrow">Annual Tax</div>
+          <div class="hero-big-amber"><span class="cur">Rs.</span><span id="tax-annual">0</span></div>
+          <div class="hero-sub">estimated tax for selected year</div>
+        </div>
+      </div>
+
+      <div class="tax-result-grid">
+        <div class="card anim">
+          <div class="card-head"><div class="card-title">By Month</div></div>
+          <div class="card-body" style="padding-top:0">
+            <table>
+              <tbody>
+                <tr><td>Salary including tax</td><td id="tax-m-gross">--</td></tr>
+                <tr><td>Tax deduction</td><td id="tax-m-tax">--</td></tr>
+                <tr class="total-row"><td>Salary after tax</td><td id="tax-m-net">--</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card anim">
+          <div class="card-head"><div class="card-title">By Year</div></div>
+          <div class="card-body" style="padding-top:0">
+            <table>
+              <tbody>
+                <tr><td>Salary including tax</td><td id="tax-y-gross">--</td></tr>
+                <tr><td>Tax deduction</td><td id="tax-y-tax">--</td></tr>
+                <tr class="total-row"><td>Salary after tax</td><td id="tax-y-net">--</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="benefit-box anim" id="tax-benefit-box">
+        <div class="benefit-top">
+          <div>
+            <div class="benefit-title">Tax Benefit vs Last Year</div>
+            <div class="benefit-sub" id="tax-benefit-desc">Comparison for the same annual income.</div>
+          </div>
+          <div class="benefit-percent" id="tax-benefit-percent">--</div>
+        </div>
+        <div class="benefit-grid">
+          <div class="benefit-mini"><span>Last Year Tax</span><strong id="tax-prev-year">--</strong></div>
+          <div class="benefit-mini"><span>Current Year Tax</span><strong id="tax-current-year">--</strong></div>
+          <div class="benefit-mini"><span>Annual Saving</span><strong id="tax-saving">--</strong></div>
+        </div>
+      </div>
+
+      <div class="card anim">
+        <div class="card-head"><div class="card-title">Calculation Details</div></div>
+        <div class="card-body" style="padding-top:0">
+          <table>
+            <tbody>
+              <tr><td><div class="td-name">Applicable slab</div><div class="td-sub" id="tax-slab-desc">--</div></td><td id="tax-rate">--</td></tr>
+              <tr><td>Fixed tax</td><td id="tax-fixed">--</td></tr>
+              <tr><td>Tax on taxable amount</td><td id="tax-percent">--</td></tr>
+              <tr class="total-row"><td>Total annual tax</td><td id="tax-total">--</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">Salary Tax Slabs</div></div>
+      <div class="card-body">
+        <div class="slab-list" id="tax-slabs-list"></div>
+        <div class="note note-warn"><strong>Note:</strong> This calculator is for salaried income tax only and uses the slab data from the income-tax calculator in this project.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Federal Salary & Income Tax Calculator 2026-27 &nbsp;·&nbsp; For reference only; verify with your DDO/AGPR or tax adviser</footer>
+
+<script>
+const s22={1:[9130,290],2:[9310,330],3:[9610,390],4:[9900,440],5:[10260,500],6:[10620,560],7:[10990,610],8:[11380,670],9:[11770,730],10:[12160,800],11:[12570,880],12:[13320,960],13:[14260,1050],14:[15180,1170],15:[16120,1330],16:[18910,1520],17:[30370,2300],18:[38350,2870],19:[59210,3050],20:[69090,4510],21:[76720,5000],22:[82380,5870]};
+const s26={1:[16280,540],2:[16660,620],3:[17130,730],4:[17650,830],5:[18300,940],6:[18930,1050],7:[19590,1140],8:[20290,1250],9:[20990,1370],10:[21680,1490],11:[22410,1640],12:[23750,1790],13:[25420,1950],14:[27060,2180],15:[28730,2480],16:[33720,2830],17:[54140,4280],18:[68330,5330],19:[105510,5670],20:[123090,8370],21:[136680,9280],22:[146770,10890]};
+const i22={1:9130,2:9310,3:9610,4:9900,5:10260,6:10620,7:10990,8:11380,9:11770,10:12160,11:12570,12:13320,13:14260,14:15180,15:16120,16:18910,17:30370,18:38350,19:59210,20:69090,21:76720,22:82380};
+const cv={1:1785,2:1785,3:1785,4:1785,5:1932,6:1932,7:1932,8:1932,9:1932,10:1932,11:2856,12:2856,13:2856,14:2856,15:2856,16:5000,17:5000,18:5000,19:5000,20:5000,21:5000,22:5000};
+const taxSlabs=[
+  {id:2,year:"2015-2016",slabs:[{min:350001,max:400000,fixed:0,rate:1.5},{min:400001,max:450000,fixed:0,rate:2.5},{min:450001,max:550000,fixed:0,rate:3.5},{min:550001,max:650000,fixed:0,rate:4.5},{min:650001,max:750000,fixed:0,rate:6},{min:750001,max:900000,fixed:0,rate:7.5},{min:900001,max:1050000,fixed:0,rate:9},{min:1050001,max:1200000,fixed:0,rate:10},{min:1200001,max:1450000,fixed:0,rate:11},{min:1450001,max:1700000,fixed:0,rate:12.5},{min:1700001,max:1950000,fixed:0,rate:14},{min:1950001,max:2250000,fixed:0,rate:15},{min:2250001,max:2850000,fixed:0,rate:16},{min:2850001,max:3550000,fixed:0,rate:17.5},{min:3550001,max:4550000,fixed:0,rate:18.5},{min:4550001,max:10000000,fixed:0,rate:20}]},
+  {id:3,year:"2016-2017",slabs:[{min:400000,max:750000,fixed:0,rate:5},{min:750000,max:1400000,fixed:17500,rate:10},{min:1400000,max:1500000,fixed:82500,rate:12.5},{min:1500000,max:1800000,fixed:95000,rate:15},{min:1800000,max:2500000,fixed:140000,rate:17.5},{min:2500000,max:3000000,fixed:262500,rate:20},{min:3000000,max:3500000,fixed:362500,rate:22.5},{min:3500000,max:4000000,fixed:475000,rate:25},{min:4000000,max:7000000,fixed:600000,rate:27.5},{min:7000000,max:700000000,fixed:1425000,rate:30}]},
+  {id:4,year:"2017-2019",slabs:[{min:0,max:400000,fixed:0,rate:0},{min:400000,max:800000,fixed:1000,rate:0},{min:800000,max:1200000,fixed:2000,rate:0},{min:1200000,max:2400000,fixed:0,rate:5},{min:2400000,max:4800000,fixed:60000,rate:10},{min:4800000,max:1000000000,fixed:300000,rate:15}]},
+  {id:5,year:"2019-2022",slabs:[{min:0,max:600000,fixed:0,rate:0},{min:600001,max:1200000,fixed:0,rate:5},{min:1200001,max:1800000,fixed:30000,rate:10},{min:1800001,max:2500000,fixed:90000,rate:15},{min:2500001,max:3500000,fixed:195000,rate:17.5},{min:3500001,max:5000000,fixed:370000,rate:20},{min:5000001,max:8000000,fixed:670000,rate:22.5},{min:8000001,max:12000000,fixed:1345000,rate:25},{min:12000001,max:30000000,fixed:2345000,rate:27.5},{min:30000001,max:50000000,fixed:7295000,rate:30},{min:50000001,max:75000000,fixed:13295000,rate:32.5},{min:75000001,max:750000000,fixed:21420000,rate:35}]},
+  {id:6,year:"2022-2023",slabs:[{min:0,max:600000,fixed:0,rate:0},{min:600001,max:1200000,fixed:0,rate:2.5},{min:1200001,max:2400000,fixed:15000,rate:12.5},{min:2400001,max:3600000,fixed:165000,rate:20},{min:3600001,max:6000000,fixed:405000,rate:25},{min:6000001,max:12000000,fixed:1005000,rate:32.5},{min:12000001,max:2000000000,fixed:2955000,rate:35}]},
+  {id:7,year:"2023-2024",slabs:[{min:0,max:600000,fixed:0,rate:0},{min:600001,max:1200000,fixed:0,rate:2.5},{min:1200001,max:2400000,fixed:15000,rate:12.5},{min:2400001,max:3600000,fixed:165000,rate:22.5},{min:3600001,max:6000000,fixed:435000,rate:27.5},{min:6000001,max:2147483647,fixed:1095000,rate:35}]},
+  {id:8,year:"2024-2025",slabs:[{min:0,max:600000,fixed:0,rate:0},{min:600001,max:1200000,fixed:0,rate:5},{min:1200001,max:2200000,fixed:30000,rate:15},{min:2200001,max:3200000,fixed:180000,rate:25},{min:3200001,max:4100000,fixed:430000,rate:30},{min:4100001,max:2147483647,fixed:700000,rate:35}]},
+  {id:9,year:"2025-2026",slabs:[{min:0,max:600000,fixed:0,rate:0},{min:600001,max:1200000,fixed:0,rate:1},{min:1200001,max:2200000,fixed:6000,rate:11},{min:2200001,max:3200000,fixed:116000,rate:23},{min:3200001,max:4100000,fixed:346000,rate:30},{min:4100001,max:2147483647,fixed:616000,rate:35}]},
+  {id:10,year:"2026-2027",slabs:[{min:0,max:600000,fixed:0,rate:0},{min:600001,max:1200000,fixed:0,rate:1},{min:1200001,max:2200000,fixed:6000,rate:11},{min:2200001,max:3200000,fixed:116000,rate:20},{min:3200001,max:4100000,fixed:316000,rate:25},{min:4100001,max:5600000,fixed:541000,rate:29},{min:5600001,max:7000000,fixed:976000,rate:32},{min:7000001,max:2147483647,fixed:1424000,rate:35}]}
+];
+const fmt=n=>Math.round(n).toLocaleString('en-PK');
+const rs=n=>'Rs. '+fmt(n);
+function byId(id){return document.getElementById(id)}
+function animCount(el,t){const steps=30,d=480;let s=0;const tm=setInterval(()=>{s++;el.textContent=fmt(Math.round(t*s/steps));if(s>=steps){el.textContent=fmt(t);clearInterval(tm)}},d/steps)}
+function switchTab(tab){
+  ['salary','tax'].forEach(name=>{
+    const active=name===tab;
+    byId(name+'-tab').classList.toggle('active',active);
+    byId(name+'-tab').setAttribute('aria-selected',String(active));
+    byId(name+'-panel').classList.toggle('active',active);
+  });
+}
+(function populateScale(){
+  let h='';
+  for(let b=1;b<=22;b++){
+    const[m2,i2]=s22[b],[m6,i6]=s26[b];
+    h+=`<tr><td>BPS-${String(b).padStart(2,'0')}</td><td class="old">${fmt(m2)}</td><td class="new">${fmt(m6)}</td><td class="diff">+${fmt(m6-m2)}</td><td>${fmt(i2)}</td><td>${fmt(i6)}</td></tr>`;
+  }
+  byId('scale-body').innerHTML=h;
+})();
+function calcSalary(){
+  const bps=parseInt(byId('bps').value,10);
+  const basic=parseFloat(byId('basic').value);
+  const basic2022=parseFloat(byId('basic-2022').value);
+  if(!bps||!basic||basic<=0||!basic2022||basic2022<=0){byId('salary-err').classList.add('show');return}
+  byId('salary-err').classList.remove('show');
+  const[m2,i2]=s22[bps],[m6,i6]=s26[bps];
+  const stage=Math.round((basic-m2)/i2);
+  const nb=Math.min(m6+stage*i6,m6+30*i6);
+  const ara=Math.round(nb*.07),dra=Math.round(basic2022*.15),conv=Math.round(cv[bps]*.5),total=ara+dra+conv;
+  animCount(byId('h-basic'),nb);animCount(byId('h-total'),total);
+  byId('m-ara').textContent=rs(ara);byId('m-dra').textContent=rs(dra);byId('m-conv').textContent=rs(conv);byId('m-total').textContent=rs(total);
+  byId('bd-ara').textContent=rs(ara);byId('bd-dra').textContent=rs(dra);byId('bd-conv').textContent=rs(conv);byId('bd-total').textContent=rs(total);
+  byId('salary-results').classList.add('show');
+  byId('salary-results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function clearSalaryRes(){byId('salary-results').classList.remove('show');byId('salary-err').classList.remove('show')}
+function resetSalary(){byId('bps').value='';byId('basic').value='';byId('basic-2022').value='';clearSalaryRes()}
+function getTaxYear(){return taxSlabs.find(y=>y.id===parseInt(byId('tax-year').value,10))}
+function slabText(s){
+  if(s.min===0)return `Annual salary income does not exceed PKR ${fmt(s.max)}.`;
+  if(s.max>=2147483647)return `Annual salary income exceeds PKR ${fmt(s.min-1)}.`;
+  return `Annual salary income exceeds PKR ${fmt(s.min-1)} but does not exceed PKR ${fmt(s.max)}.`;
+}
+function populateTaxSlabs(){
+  const y=getTaxYear();
+  byId('tax-slabs-list').innerHTML=y.slabs.map(s=>`<div class="slab-item"><strong>${slabText(s)}</strong><span>Fixed tax: ${rs(s.fixed)} + ${s.rate}% of the amount exceeding PKR ${fmt(Math.max(s.min-1,0))}</span></div>`).join('');
+}
+function calculateTaxForYear(income,year){
+  const slab=year.slabs.find(s=>income>s.min&&income<=s.max)||year.slabs[0];
+  const taxable=Math.max(income-slab.min,0);
+  const percentTax=Math.ceil(taxable*slab.rate/100);
+  const totalTax=Math.ceil(percentTax+slab.fixed);
+  return {slab,taxable,percentTax,totalTax};
+}
+function calcTax(){
+  const raw=parseFloat(byId('tax-income').value);
+  if(!raw||raw<=0){byId('tax-err').classList.add('show');return}
+  byId('tax-err').classList.remove('show');
+  const income=byId('tax-period').value==='monthly'?raw*12:raw;
+  const year=getTaxYear();
+  const currentTax=calculateTaxForYear(income,year);
+  const slab=currentTax.slab;
+  const percentTax=currentTax.percentTax;
+  const totalTax=currentTax.totalTax;
+  const previousYear=taxSlabs.filter(y=>y.id<year.id).sort((a,b)=>b.id-a.id)[0];
+  const previousTax=previousYear?calculateTaxForYear(income,previousYear).totalTax:null;
+  const taxSaving=previousTax===null?0:previousTax-totalTax;
+  const benefitPercent=previousTax>0?(taxSaving/previousTax)*100:(taxSaving>0?100:0);
+  const monthlyGross=income/12,monthlyTax=totalTax/12;
+  animCount(byId('tax-monthly'),Math.ceil(monthlyTax));animCount(byId('tax-annual'),totalTax);
+  byId('tax-m-gross').textContent=rs(monthlyGross);byId('tax-m-tax').textContent=rs(monthlyTax);byId('tax-m-net').textContent=rs(monthlyGross-monthlyTax);
+  byId('tax-y-gross').textContent=rs(income);byId('tax-y-tax').textContent=rs(totalTax);byId('tax-y-net').textContent=rs(income-totalTax);
+  byId('tax-slab-desc').textContent=slabText(slab);byId('tax-rate').textContent=slab.rate+'%';
+  byId('tax-fixed').textContent=rs(slab.fixed);byId('tax-percent').textContent=rs(percentTax);byId('tax-total').textContent=rs(totalTax);
+  byId('tax-benefit-box').classList.toggle('negative',taxSaving<0);
+  byId('tax-benefit-percent').textContent=(benefitPercent>=0?'+':'')+benefitPercent.toFixed(2)+'%';
+  byId('tax-benefit-desc').textContent=previousYear?`${year.year} compared with ${previousYear.year} for the same annual income.`:'No previous year data available for comparison.';
+  byId('tax-prev-year').textContent=previousTax===null?'--':rs(previousTax);
+  byId('tax-current-year').textContent=rs(totalTax);
+  byId('tax-saving').textContent=(taxSaving>=0?rs(taxSaving):'-'+rs(Math.abs(taxSaving)));
+  byId('tax-results').classList.add('show');
+  byId('tax-results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function clearTaxRes(){byId('tax-results').classList.remove('show');byId('tax-err').classList.remove('show')}
+function resetTax(){byId('tax-income').value='';byId('tax-period').value='monthly';clearTaxRes()}
+populateTaxSlabs();
 </script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/calc.js"></script>
-
 </body>
-
 </html>

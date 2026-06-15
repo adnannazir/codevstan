@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federal Salary Increase Calculator 2026-27</title>
+
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --navy:#0f2040;
+  --navy2:#1a3560;
+  --navy3:#254a8a;
+  --cream:#f7f4ef;
+  --cream2:#eee9e0;
+  --amber:#c97b1a;
+  --amber-lite:#fdf3e0;
+  --amber-mid:#e8971f;
+  --ink:#1a1a2e;
+  --ink2:#3d4466;
+  --muted:#7a8099;
+  --border:#d6cebc;
+  --white:#ffffff;
+  --green:#1a6b3c;
+  --green-lite:#e8f5ee;
+  --blue-lite:#e8eef8;
+  --red:#b83232;
+}
+
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'IBM Plex Sans',sans-serif;
+  min-height:100vh;
+}
+
+/* ── HEADER ── */
+.header{
+  background:var(--navy);
+  padding:0;
+  position:relative;
+  overflow:hidden;
+}
+.header-stripe{
+  height:4px;
+  background:repeating-linear-gradient(90deg,var(--amber) 0,var(--amber) 40px,var(--navy2) 40px,var(--navy2) 48px);
+}
+.header-inner{
+  padding:40px 24px 36px;
+  max-width:680px;
+  margin:0 auto;
+}
+.header-kicker{
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--amber-mid);
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.header-kicker::before{content:'';width:20px;height:2px;background:var(--amber-mid);display:inline-block;}
+.header h1{
+  font-size:clamp(22px,4.5vw,34px);
+  font-weight:300;
+  color:#ffffff;
+  line-height:1.2;
+  letter-spacing:-.01em;
+  margin-bottom:10px;
+}
+.header h1 strong{font-weight:600;}
+.header-sub{
+  font-size:13px;
+  color:rgba(255,255,255,.55);
+  line-height:1.7;
+  max-width:520px;
+}
+.header-pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px;
+}
+.pill{
+  font-size:11px;
+  font-weight:500;
+  padding:4px 12px;
+  border-radius:2px;
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.7);
+  letter-spacing:.03em;
+}
+
+/* ── RATE STRIP ── */
+.rate-strip{
+  background:var(--navy2);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.rate-strip-inner{
+  max-width:680px;
+  margin:0 auto;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+}
+.rate-item{
+  padding:14px 0;
+  text-align:center;
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.rate-item:last-child{border-right:none;}
+.rate-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:22px;
+  font-weight:500;
+  color:var(--amber-mid);
+  line-height:1;
+}
+.rate-label{font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.06em;text-transform:uppercase;}
+
+/* ── MAIN ── */
+main{
+  max-width:680px;
+  margin:0 auto;
+  padding:28px 20px 64px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* ── CARD ── */
+.card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:4px;
+}
+.card-head{
+  padding:18px 22px 0;
+  border-bottom:1px solid var(--cream2);
+  padding-bottom:14px;
+  margin-bottom:20px;
+}
+.card-title{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.card-body{padding:0 22px 22px;}
+
+/* ── FORM ── */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+.field label{
+  display:block;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.field .hint{font-size:11px;color:var(--muted);margin-top:5px;}
+.inp-wrap{position:relative;}
+.inp-wrap select,
+.inp-wrap input[type=number]{
+  width:100%;
+  padding:11px 14px;
+  border:1.5px solid var(--border);
+  border-radius:3px;
+  background:var(--cream);
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  color:var(--ink);
+  outline:none;
+  appearance:none;
+  -webkit-appearance:none;
+  transition:border-color .18s;
+}
+.inp-wrap select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8099' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  padding-right:36px;
+  cursor:pointer;
+}
+.inp-wrap select:focus,
+.inp-wrap input[type=number]:focus{
+  border-color:var(--navy3);
+  background:var(--white);
+}
+.inp-unit{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-size:10px;font-weight:600;color:var(--amber);pointer-events:none;letter-spacing:.06em;
+}
+
+/* ── ERROR ── */
+.err-box{
+  display:none;
+  margin-top:14px;
+  padding:10px 14px;
+  background:#fdf1f1;
+  border:1px solid #f0c0c0;
+  border-left:3px solid var(--red);
+  border-radius:3px;
+  font-size:12px;
+  color:var(--red);
+  font-weight:500;
+}
+.err-box.show{display:block;}
+
+/* ── BUTTONS ── */
+.btn-row{display:flex;gap:10px;margin-top:18px;}
+.btn{
+  border:none;cursor:pointer;
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:13px;font-weight:600;
+  letter-spacing:.04em;
+  padding:12px 22px;
+  border-radius:3px;
+  transition:background .15s,transform .1s;
+}
+.btn:active{transform:scale(.98);}
+.btn-primary{
+  flex:1;
+  background:var(--navy);
+  color:var(--white);
+}
+.btn-primary:hover{background:var(--navy2);}
+.btn-reset{
+  background:var(--cream2);
+  color:var(--ink2);
+  border:1px solid var(--border);
+}
+.btn-reset:hover{background:var(--border);}
+
+/* ── RESULTS ── */
+#results{display:none;flex-direction:column;gap:20px;}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:fadein .3s ease both;}
+
+/* ── HERO BAND ── */
+.hero-band{
+  background:var(--navy);
+  border-radius:4px;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+@media(max-width:440px){.hero-band{grid-template-columns:1fr;}}
+.hero-cell{padding:24px 22px;}
+.hero-cell+.hero-cell{border-left:1px solid rgba(255,255,255,.08);}
+@media(max-width:440px){.hero-cell+.hero-cell{border-left:none;border-top:1px solid rgba(255,255,255,.08);}}
+.hero-eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;}
+.hero-big{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(26px,5vw,36px);
+  font-weight:400;
+  color:var(--white);
+  line-height:1;
+}
+.hero-big .cur{font-size:.55em;color:var(--amber-mid);vertical-align:.12em;margin-right:2px;}
+.hero-sub{font-size:11px;color:rgba(255,255,255,.35);margin-top:6px;}
+.hero-big-amber{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:clamp(22px,4vw,30px);
+  font-weight:400;
+  color:var(--amber-mid);
+  line-height:1;
+}
+.hero-big-amber .cur{font-size:.55em;vertical-align:.12em;margin-right:2px;opacity:.7;}
+
+/* ── METRIC GRID ── */
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:4px;}
+@media(max-width:400px){.metric-grid{grid-template-columns:1fr 1fr;}}
+.metric{
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:3px;
+  padding:14px 12px;
+  text-align:center;
+}
+.metric.full{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left;padding:14px 18px;background:var(--amber-lite);border-color:#e0c888;}
+.metric-icon{font-size:18px;margin-bottom:6px;}
+.metric-val{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:16px;font-weight:500;
+  color:var(--navy);
+}
+.metric-val.big{font-size:20px;color:var(--amber);}
+.metric-label{font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:.05em;text-transform:uppercase;}
+.metric.full .metric-val.big{font-size:22px;}
+.metric-full-left .metric-label{margin-top:2px;}
+
+/* ── BREAKDOWN TABLE ── */
+.bdt{width:100%;border-collapse:collapse;font-size:13px;}
+.bdt thead tr{background:var(--navy);}
+.bdt thead th{
+  padding:11px 16px;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);font-weight:600;text-align:left;
+}
+.bdt thead th:last-child{text-align:right;}
+.bdt tbody tr{border-bottom:1px solid var(--cream2);}
+.bdt tbody tr:last-child{border-bottom:none;}
+.bdt tbody tr:hover{background:var(--cream);}
+.bdt tbody td{padding:13px 16px;color:var(--ink2);vertical-align:middle;}
+.bdt tbody td:last-child{
+  text-align:right;
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:500;font-size:14px;
+  color:var(--navy);
+}
+.bdt .td-name{font-weight:600;color:var(--ink);font-size:13px;}
+.bdt .td-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.bdt .total-row td{
+  background:var(--navy);
+  color:rgba(255,255,255,.7) !important;
+  font-weight:600;
+}
+.bdt .total-row td:last-child{
+  color:var(--amber-mid) !important;
+  font-size:16px !important;
+}
+
+/* ── SCALE TABLE ── */
+.sct{width:100%;border-collapse:collapse;font-size:12px;}
+.sct thead tr{background:var(--cream2);}
+.sct thead th{
+  padding:9px 12px;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;text-align:center;
+  border-bottom:1px solid var(--border);
+}
+.sct tbody tr{border-bottom:1px solid var(--cream2);}
+.sct tbody tr:nth-child(even){background:var(--cream);}
+.sct tbody tr:hover{background:var(--blue-lite);}
+.sct tbody td{padding:8px 12px;text-align:center;color:var(--ink2);}
+.sct tbody td:first-child{font-weight:600;color:var(--navy);text-align:left;}
+.sct .old{color:#b83232;}
+.sct .new{color:var(--green);font-weight:600;}
+.sct .diff{color:var(--amber);font-weight:600;}
+
+/* ── NOTE ── */
+.note{
+  font-size:12px;line-height:1.7;
+  padding:12px 16px;
+  border-radius:3px;
+  margin-top:16px;
+}
+.note-info{background:var(--green-lite);border-left:3px solid var(--green);color:#1a4a2e;}
+.note-warn{background:var(--amber-lite);border-left:3px solid var(--amber);color:#5c3a08;margin-top:10px;}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;
+  padding:24px 16px;
+  font-size:11px;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+  letter-spacing:.04em;
+}
+
+.top-tool-link {
+    margin: 1.5em auto 2em auto;
+    text-align: center;
+}
+
+.top-tool-link a {
+    display: inline-block;
+    padding: 0.8em 1.4em;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.45);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-size: 0.95em;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.top-tool-link a:hover {
+    background: #ffffff;
+    color: #935d8c !important;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-stripe"></div>
+  <div class="header-inner">
+    <div class="header-kicker">Budget 2026-27 &nbsp;·&nbsp; Annexure-VII</div>
+    <h1><strong>Federal Salary Increase Calculator <br>2026 &ndash; 27</h1>
+    <div class="top-tool-link">
+    <a href="income-tax/index.html">
+        ← Income Tax Calculator 2026-2027
+    </a>
+</div>
+    <p class="header-sub">New basic pay, ARA, DRA &amp; conveyance increase as per Finance Division notification for Federal Govt Employees (BPS 01–22).</p>
+    <div class="header-pills">
+      <span class="pill">W.E.F. 1st July 2026</span>
+      <span class="pill">Pay Scale 2026</span>
+      <span class="pill">BPS 01 – 22</span>
+    </div>
+  </div>
+  <div class="rate-strip">
+    <div class="rate-strip-inner">
+      <div class="rate-item"><div class="rate-num">7%</div><div class="rate-label">ARA on New Basic</div></div>
+      <div class="rate-item"><div class="rate-num">15%</div><div class="rate-label">DRA on Initial 2022</div></div>
+      <div class="rate-item"><div class="rate-num">50%</div><div class="rate-label">Conveyance Extra</div></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- INPUT CARD -->
+  <div class="card">
+    <div class="card-head"><div class="card-title">Employee Details</div></div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="field">
+          <label>BPS Grade</label>
+          <div class="inp-wrap">
+            <select id="bps" onchange="clearRes()">
+              <option value="">— Select Grade —</option>
+              <option value="1">BPS-01</option><option value="2">BPS-02</option>
+              <option value="3">BPS-03</option><option value="4">BPS-04</option>
+              <option value="5">BPS-05</option><option value="6">BPS-06</option>
+              <option value="7">BPS-07</option><option value="8">BPS-08</option>
+              <option value="9">BPS-09</option><option value="10">BPS-10</option>
+              <option value="11">BPS-11</option><option value="12">BPS-12</option>
+              <option value="13">BPS-13</option><option value="14">BPS-14</option>
+              <option value="15">BPS-15</option><option value="16">BPS-16</option>
+              <option value="17">BPS-17</option><option value="18">BPS-18</option>
+              <option value="19">BPS-19</option><option value="20">BPS-20</option>
+              <option value="21">BPS-21</option><option value="22">BPS-22</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Current Running Basic Pay</label>
+          <div class="inp-wrap">
+            <input type="number" id="basic" placeholder="e.g. 32640" min="0" oninput="clearRes()" />
+            <span class="inp-unit">PKR</span>
+          </div>
+          <p class="hint">Basic pay as on 30.06.2026 (before merger)</p>
+        </div>
+      </div>
+      <div class="err-box" id="err">Please select your BPS grade and enter your current basic pay.</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="calc()">Calculate Salary Increase</button>
+        <button class="btn btn-reset" onclick="reset()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <!-- HERO -->
+    <div class="hero-band anim">
+      <div class="hero-cell">
+        <div class="hero-eyebrow">New Basic Pay</div>
+        <div class="hero-big"><span class="cur">Rs.</span><span id="h-basic">0</span></div>
+        <div class="hero-sub">Effective 1st July 2026</div>
+      </div>
+      <div class="hero-cell">
+        <div class="hero-eyebrow">Monthly Increase</div>
+        <div class="hero-big-amber"><span class="cur">Rs.</span><span id="h-total">0</span></div>
+        <div class="hero-sub">extra in hand per month</div>
+      </div>
+    </div>
+
+    <!-- METRIC GRID -->
+    <div class="card anim">
+      <div class="card-head"><div class="card-title">Increase Summary</div></div>
+      <div class="card-body">
+        <div class="metric-grid">
+          <div class="metric">
+            <div class="metric-icon">📈</div>
+            <div class="metric-val" id="m-ara">—</div>
+            <div class="metric-label">7% ARA 2026</div>
+          </div>
+          <div class="metric">
+            <div class="metric-icon">⚖️</div>
+            <div class="metric-val" id="m-dra">—</div>
+            <div class="metric-label">15% DRA 2026</div>
+          </div>
+          <div class="metric">
+            <div class="metric-icon">🚌</div>
+            <div class="metric-val" id="m-conv">—</div>
+            <div class="metric-label">50% Conveyance</div>
+          </div>
+          <div class="metric full">
+            <div class="metric-full-left">
+              <div class="metric-label">Total Monthly Jump</div>
+              <div class="metric-val big" id="m-total">—</div>
+            </div>
+            <div style="font-size:28px;">💰</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BREAKDOWN TABLE -->
+    <div class="card anim">
+      <div class="card-head"><div class="card-title">Detailed Breakdown</div></div>
+      <div class="card-body" style="padding-top:0;">
+        <div style="overflow-x:auto;">
+          <table class="bdt">
+            <thead><tr><th>Allowance Component</th><th>Amount (PKR)</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div class="td-name">7% ARA 2026</div><div class="td-sub">On new merged basic pay</div></td>
+                <td id="bd-ara">—</td>
+              </tr>
+              <tr>
+                <td><div class="td-name">15% DRA 2026</div><div class="td-sub">On initial basic as on 30.06.2022</div></td>
+                <td id="bd-dra">—</td>
+              </tr>
+              <tr>
+                <td><div class="td-name">50% Conveyance Extra</div><div class="td-sub">On existing conveyance allowance</div></td>
+                <td id="bd-conv">—</td>
+              </tr>
+              <tr class="total-row">
+                <td><strong>Total Monthly Jump</strong></td>
+                <td id="bd-total">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCALE TABLE -->
+    <div class="card anim">
+      <div class="card-head"><div class="card-title">2022 vs 2026 — Pay Scale Reference</div></div>
+      <div class="card-body" style="padding-top:0;">
+        <div style="overflow-x:auto;">
+          <table class="sct">
+            <thead><tr><th style="text-align:left">BPS</th><th>Min Basic 2022</th><th>Min Basic 2026</th><th>Increase</th><th>Increment 2022</th><th>Increment 2026</th></tr></thead>
+            <tbody id="scale-body"></tbody>
+          </table>
+        </div>
+        <div class="note note-info">
+          <strong>Budget 2026-27 Relief:</strong> 7% Ad-hoc Relief Allowance (ARA) on new merged basic pay + 15% Disparity Reduction Allowance (DRA) on 2022 initial basic + 50% increase in Conveyance Allowance.
+        </div>
+        <div class="note note-warn">
+          <strong>Note:</strong> This calculator follows the Annexure-VII formula as per Finance Division notification. Actual salary may vary based on your specific stage/increment position. Always verify with your DDO/AGPR office.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /results -->
+
+</main>
+
+<footer>Federal Salary Calculator 2026-27 &nbsp;·&nbsp; Based on Finance Division Notification &nbsp;·&nbsp; For reference only — verify with your DDO/AGPR</footer>
+
+<script>
+const s22={1:[13550,430],2:[13820,490],3:[14260,580],4:[14690,660],5:[15230,750],6:[15760,840],7:[16310,910],8:[16890,1000],9:[17470,1090],10:[18050,1190],11:[18650,1310],12:[19770,1430],13:[21160,1560],14:[22530,1740],15:[23920,1980],16:[28070,2260],17:[45070,3420],18:[56880,4260],19:[87840,4530],20:[102470,6690],21:[113790,7420],22:[122190,8710]};
+const s26={1:[16280,540],2:[16660,620],3:[17130,730],4:[17650,830],5:[18300,940],6:[18930,1050],7:[19590,1140],8:[20290,1250],9:[20990,1370],10:[21680,1490],11:[22410,1640],12:[23750,1790],13:[25420,1950],14:[27060,2180],15:[28730,2480],16:[33720,2830],17:[54140,4280],18:[68330,5330],19:[105510,5670],20:[123090,8370],21:[136680,9280],22:[146770,10890]};
+const i22={1:13550,2:13820,3:14260,4:14690,5:15230,6:15760,7:16310,8:16890,9:17470,10:18050,11:18650,12:19770,13:21160,14:22530,15:23920,16:28070,17:45070,18:56880,19:87840,20:102470,21:113790,22:122190};
+const cv={1:1785,2:1785,3:1785,4:1785,5:1932,6:1932,7:1932,8:1932,9:1932,10:1932,11:2856,12:2856,13:2856,14:2856,15:2856,16:5000,17:5000,18:5000,19:5000,20:5000,21:5000,22:5000};
+
+const fmt=n=>Math.round(n).toLocaleString('en-PK');
+
+function animCount(el,t){
+  const steps=30,d=480;let s=0;
+  const tm=setInterval(()=>{s++;el.textContent=fmt(Math.round(t*s/steps));if(s>=steps){el.textContent=fmt(t);clearInterval(tm);}},d/steps);
+}
+
+// populate scale table on load
+(function(){
+  let h='';
+  for(let b=1;b<=22;b++){
+    const[m2,i2]=s22[b],[m6,i6]=s26[b];
+    h+=`<tr><td>BPS-${String(b).padStart(2,'0')}</td><td class="old">${fmt(m2)}</td><td class="new">${fmt(m6)}</td><td class="diff">+${fmt(m6-m2)}</td><td>${fmt(i2)}</td><td>${fmt(i6)}</td></tr>`;
+  }
+  document.getElementById('scale-body').innerHTML=h;
+})();
+
+function calc(){
+  const bps=parseInt(document.getElementById('bps').value);
+  const basic=parseFloat(document.getElementById('basic').value);
+  if(!bps||!basic||basic<=0){document.getElementById('err').classList.add('show');return;}
+  document.getElementById('err').classList.remove('show');
+
+  const[m2,i2]=s22[bps],[m6,i6]=s26[bps];
+  const stage=Math.round((basic-m2)/i2);
+  const nb=Math.min(m6+stage*i6, m6+30*i6);
+  const ara=Math.round(nb*0.07);
+  const dra=Math.round(i22[bps]*0.15);
+  const conv=Math.round(cv[bps]*0.50);
+  const total=ara+dra+conv;
+
+  animCount(document.getElementById('h-basic'),nb);
+  animCount(document.getElementById('h-total'),total);
+
+  const rs=n=>'Rs. '+fmt(n);
+  document.getElementById('m-ara').textContent=rs(ara);
+  document.getElementById('m-dra').textContent=rs(dra);
+  document.getElementById('m-conv').textContent=rs(conv);
+  document.getElementById('m-total').textContent=rs(total);
+  document.getElementById('bd-ara').textContent=rs(ara);
+  document.getElementById('bd-dra').textContent=rs(dra);
+  document.getElementById('bd-conv').textContent=rs(conv);
+  document.getElementById('bd-total').textContent=rs(total);
+
+  const r=document.getElementById('results');
+  r.style.display='flex';
+  r.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function clearRes(){
+  document.getElementById('results').style.display='none';
+  document.getElementById('err').classList.remove('show');
+}
+function reset(){
+  document.getElementById('bps').value='';
+  document.getElementById('basic').value='';
+  clearRes();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
