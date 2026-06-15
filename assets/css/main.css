@@ -3786,3 +3786,27 @@ input, select, textarea {
 			}
 
 		}
+
+
+		.top-tool-link {
+    margin: 1.5em auto 2em auto;
+    text-align: center;
+}
+
+.top-tool-link a {
+    display: inline-block;
+    padding: 0.8em 1.4em;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.45);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-size: 0.95em;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.top-tool-link a:hover {
+    background: #ffffff;
+    color: #935d8c !important;
+}
