@@ -179,7 +179,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
           <div class="field">
             <label for="basic">Current Running Basic Pay</label>
             <div class="inp-wrap">
-              <input type="number" id="basic" placeholder="e.g. 32640" min="0" oninput="clearSalaryRes()">
+              <input type="number" id="basic" placeholder="e.g. 54140" min="0" oninput="clearSalaryRes()">
               <span class="inp-unit">PKR</span>
             </div>
             <p class="hint">Basic pay as on 30.06.2026 before merger.</p>
@@ -187,7 +187,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
           <div class="field">
             <label for="basic-2022">Basic Pay on June 2022</label>
             <div class="inp-wrap">
-              <input type="number" id="basic-2022" placeholder="e.g. 28070" min="0" oninput="clearSalaryRes()">
+              <input type="number" id="basic-2022" placeholder="e.g. 30370" min="0" oninput="clearSalaryRes()">
               <span class="inp-unit">PKR</span>
             </div>
             <p class="hint">Actual basic pay as on 30.06.2022 for DRA.</p>
@@ -253,7 +253,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
       <div class="card-body" style="padding-top:0">
         <div style="overflow-x:auto">
           <table class="scale-table">
-            <thead><tr><th style="text-align:left">BPS</th><th>Min Basic 2017/ Jun-22</th><th>Min Basic 2026</th><th>Increase</th><th>Increment 2022</th><th>Increment 2026</th></tr></thead>
+            <thead><tr><th style="text-align:left">BPS</th><th>June 2022 Basic</th><th>Min Basic 2026</th><th>Increase</th><th>June 2022 Increment</th><th>Increment 2026</th></tr></thead>
             <tbody id="scale-body"></tbody>
           </table>
         </div>
@@ -393,7 +393,8 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--muted);bor
 <footer>Federal Salary & Income Tax Calculator 2026-27 &nbsp;·&nbsp; For reference only; verify with your DDO/AGPR or tax adviser</footer>
 
 <script>
-const s22={1:[9130,290],2:[9310,330],3:[9610,390],4:[9900,440],5:[10260,500],6:[10620,560],7:[10990,610],8:[11380,670],9:[11770,730],10:[12160,800],11:[12570,880],12:[13320,960],13:[14260,1050],14:[15180,1170],15:[16120,1330],16:[18910,1520],17:[30370,2300],18:[38350,2870],19:[59210,3050],20:[69090,4510],21:[76720,5000],22:[82380,5870]};
+const s22={1:[13550,430],2:[13820,490],3:[14260,580],4:[14690,660],5:[15230,750],6:[15760,840],7:[16310,910],8:[16890,1000],9:[17470,1090],10:[18050,1190],11:[18650,1310],12:[19770,1430],13:[21160,1560],14:[22530,1740],15:[23920,1980],16:[28070,2260],17:[45070,3420],18:[56880,4260],19:[87840,4530],20:[102470,6690],21:[113790,7420],22:[122190,8710]};
+const june22={1:[9130,290],2:[9310,330],3:[9610,390],4:[9900,440],5:[10260,500],6:[10620,560],7:[10990,610],8:[11380,670],9:[11770,730],10:[12160,800],11:[12570,880],12:[13320,960],13:[14260,1050],14:[15180,1170],15:[16120,1330],16:[18910,1520],17:[30370,2300],18:[38350,2870],19:[59210,3050],20:[69090,4510],21:[76720,5000],22:[82380,5870]};
 const s26={1:[16280,540],2:[16660,620],3:[17130,730],4:[17650,830],5:[18300,940],6:[18930,1050],7:[19590,1140],8:[20290,1250],9:[20990,1370],10:[21680,1490],11:[22410,1640],12:[23750,1790],13:[25420,1950],14:[27060,2180],15:[28730,2480],16:[33720,2830],17:[54140,4280],18:[68330,5330],19:[105510,5670],20:[123090,8370],21:[136680,9280],22:[146770,10890]};
 const i22={1:9130,2:9310,3:9610,4:9900,5:10260,6:10620,7:10990,8:11380,9:11770,10:12160,11:12570,12:13320,13:14260,14:15180,15:16120,16:18910,17:30370,18:38350,19:59210,20:69090,21:76720,22:82380};
 const cv={1:1785,2:1785,3:1785,4:1785,5:1932,6:1932,7:1932,8:1932,9:1932,10:1932,11:2856,12:2856,13:2856,14:2856,15:2856,16:5000,17:5000,18:5000,19:5000,20:5000,21:5000,22:5000};
@@ -423,7 +424,7 @@ function switchTab(tab){
 (function populateScale(){
   let h='';
   for(let b=1;b<=22;b++){
-    const[m2,i2]=s22[b],[m6,i6]=s26[b];
+    const[m2,i2]=june22[b],[m6,i6]=s26[b];
     h+=`<tr><td>BPS-${String(b).padStart(2,'0')}</td><td class="old">${fmt(m2)}</td><td class="new">${fmt(m6)}</td><td class="diff">+${fmt(m6-m2)}</td><td>${fmt(i2)}</td><td>${fmt(i6)}</td></tr>`;
   }
   byId('scale-body').innerHTML=h;
